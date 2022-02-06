@@ -8,6 +8,8 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             val jsonObject = jsonArray.getJSONObject(index)
             val catText = jsonObject.getString("text")
             //val catImage = jsonObject.getString("image")
-            val cat = Cat(catText, )
+            val cat = Cat(catText)
             catList.add(cat)
         }
         return catList
@@ -56,5 +58,9 @@ class MainActivity : AppCompatActivity() {
         recyclerid.adapter = adapter
         val layoutManager = LinearLayoutManager(this)
         recyclerid.layoutManager = layoutManager
+    }
+    private fun initRealm(){
+        Realm.init(this)
+        val config = RealmConfiguration.Builder()
     }
 }
