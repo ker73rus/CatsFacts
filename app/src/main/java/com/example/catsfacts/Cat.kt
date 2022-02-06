@@ -1,6 +1,8 @@
 package com.example.catsfacts
 
+import io.realm.RealmObject
+
 data class Cat(
-    val text: String,
- //   val image: String
-    )
+    var text: String
+    //   val image: String
+)

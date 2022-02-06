@@ -1,5 +1,7 @@
 package com.example.catsfacts
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,12 +13,14 @@ import com.android.volley.toolbox.Volley
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.internal.Internal
 import org.json.JSONArray
 
 class MainActivity : AppCompatActivity() {
     private val url = "https://cat-fact.herokuapp.com/facts"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initRealm()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -62,5 +66,9 @@ class MainActivity : AppCompatActivity() {
     private fun initRealm(){
         Realm.init(this)
         val config = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build()
+        Realm.setDefaultConfiguration(config)
     }
+
 }

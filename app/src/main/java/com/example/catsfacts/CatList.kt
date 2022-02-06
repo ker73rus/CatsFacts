@@ -1,11 +1,14 @@
 package com.example.catsfacts
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.catsfacts.DetailActivity.Companion.CAT_FACT_TEXT_TEXT
 
 class CatAdapter(private val cats: List<Cat>) : RecyclerView.Adapter<CatViewHolder>() {
 
@@ -26,12 +29,19 @@ class CatAdapter(private val cats: List<Cat>) : RecyclerView.Adapter<CatViewHold
 }
 
 class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    //private val imageView: ImageView = itemView.findViewById((R.id.ImageId))
+    //private val imageView: ImageView = itemView.findViewById((R.id.TextId))
     private val textView: TextView = itemView.findViewById((R.id.TextId))
 
 
     fun bind(cat: Cat) {
         textView.text = cat.text
-
+        itemView.setOnClickListener {
+            openDetail(itemView.context, cat)
+        }
+    }
+    private fun openDetail(context: Context, cat: Cat){
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra(CAT_FACT_TEXT_TEXT,cat.text)
+        context.startActivity(intent)
     }
 }
